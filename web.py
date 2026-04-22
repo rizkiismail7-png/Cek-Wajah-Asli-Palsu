@@ -12,7 +12,7 @@ def get_base64_of_bin_file(bin_file):
         data = f.read()
     return base64.b64encode(data).decode()
 
-# Mencoba membaca file background.jpg. Jika gagal, gunakan background gelap biasa.
+# Memasang background jika file ada, abaikan jika tidak ada (agar tidak muncul teks error)
 try:
     if os.path.exists("background.jpg"):
         bin_str = get_base64_of_bin_file("background.jpg")
@@ -28,24 +28,22 @@ try:
             """,
             unsafe_allow_html=True
         )
-    else:
-        st.write("<!- Background image not found, using default dark theme -->", unsafe_allow_html=True)
-except Exception as e:
-    st.write("<!- Background system error -->", unsafe_allow_html=True)
+except:
+    pass
 
 
-# --- JURUS PAMUNGKAS: INJEKSI CSS TINGKAT TINGGI (SIBER-NEON GLASSMORPHISM) ---
+# --- JURUS PAMUNGKAS: INJEKSI CSS TINGKAT TINGGI ---
 st.markdown("""
     <style>
-    /* Mengubah font global agar lebih modern */
+    /* Mengubah font global */
     * { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif !important; }
 
     /* --- SIDEBAR GLASSMORPHISM & NEON --- */
     [data-testid="stSidebar"] {
-        background: rgba(255, 255, 255, 0.05); /* Transparan buram */
-        backdrop-filter: blur(20px); /* Efek Kaca Buram */
+        background: rgba(255, 255, 255, 0.05); 
+        backdrop-filter: blur(20px);
         -webkit-backdrop-filter: blur(20px);
-        border-right: 2px solid rgba(255, 75, 120, 0.4); /* Garis neon samping */
+        border-right: 2px solid rgba(255, 75, 120, 0.4);
         box-shadow: 10px 0 30px rgba(0, 0, 0, 0.3);
     }
     
@@ -69,7 +67,7 @@ st.markdown("""
         filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.5));
     }
 
-    /* Deskripsi di Sidebar (Versi screenshot) */
+    /* Deskripsi di Sidebar */
     .sidebar-desc-box {
         background: rgba(255, 255, 255, 0.03);
         border: 2px solid rgba(255, 75, 120, 0.6);
@@ -90,7 +88,6 @@ st.markdown("""
     }
 
     /* --- HALAMAN UTAMA & ELEMEN SIBER --- */
-    /* Judul Utama */
     .judul-siber {
         font-size: 40px !important;
         font-weight: bold !important;
@@ -99,7 +96,6 @@ st.markdown("""
         filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.8));
     }
 
-    /* Sub-judul */
     .subjudul-siber {
         font-size: 16px !important;
         text-align: center;
@@ -107,7 +103,6 @@ st.markdown("""
         margin-bottom: 30px;
     }
 
-    /* Label Upload (👤 Subjek...) */
     .label-upload {
         font-size: 20px;
         font-weight: bold;
@@ -117,7 +112,6 @@ st.markdown("""
         filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.5));
     }
 
-    /* Ikon Profil */
     .icon-profil {
         color: rgba(255, 75, 120, 1);
         margin-right: 10px;
@@ -125,21 +119,13 @@ st.markdown("""
         filter: drop-shadow(0 0 5px rgba(255, 75, 120, 0.7));
     }
 
-    /* --- KARTU UPLOAD GLASSMORPHISM & GLOW --- */
+    /* --- KARTU UPLOAD GLASSMORPHISM --- */
     div[data-testid="stFileUploader"] {
-        background: rgba(255, 255, 255, 0.05) !important; /* Kaca Buram */
-        border: 2px solid rgba(255, 75, 120, 0.5) !important; /* Neon glow */
+        background: rgba(255, 255, 255, 0.05) !important; 
+        border: 2px solid rgba(255, 75, 120, 0.5) !important; 
         border-radius: 12px !important;
         padding: 10px !important;
         box-shadow: 0 0 20px rgba(255, 75, 120, 0.3) !important;
-    }
-
-    /* Tombol Upload Asli (Diusahakan transparansinya) */
-    div[data-testid="stFileUploader"] > section > button {
-        background-color: transparent !important;
-        border: 1px solid rgba(255, 75, 120, 0.8) !important;
-        color: white !important;
-        border-radius: 6px !important;
     }
 
     /* --- KOTAK FOOTER TENGAH & KESIMPULAN --- */
@@ -168,21 +154,18 @@ st.markdown("""
         border-bottom: 2px solid rgba(255, 75, 120, 0.4) !important;
         filter: drop-shadow(0 0 5px rgba(255, 75, 120, 0.5));
     }
-
     </style>
 """, unsafe_allow_html=True)
 
 
-# --- KONSTRUKSI UI (GLASSMORPHISM EDITION) ---
+# --- KONSTRUKSI UI ---
 
-# --- SIDEBAR (Kustomisasi Screenshot) ---
+# --- SIDEBAR ---
 with st.sidebar:
-    # Menggunakan HTML Kustom untuk ikon dan teks bergaya siber
     st.markdown('<div class="sidebar-icon">📁</div>', unsafe_allow_html=True)
     st.markdown('<div class="sidebar-header">Tentang Creator</div>', unsafe_allow_html=True)
     st.markdown('<p style="color:rgba(255,255,255,0.8); text-align:center;">RK STUDIO (MASAK AER)</p>', unsafe_allow_html=True)
     
-    # Kotak deskripsi transparan & glow
     st.markdown("""
         <div class="sidebar-desc-box">
             Aplikasi web ini dirancang khusus untuk memverifikasi keaslian foto wajah secara instan & akurat menggunakan teknologi <span class='creator-glow'>Deep Learning</span>.
@@ -191,28 +174,25 @@ with st.sidebar:
     
     st.markdown('<p class="sidebar-footer">© 2026 Hak Cipta Dilindungi<br>Powered by RK Studio</p>', unsafe_allow_html=True)
 
-# --- HALAMAN UTAMA (Desain Siber) ---
+# --- HALAMAN UTAMA ---
 st.markdown('<div class="judul-siber">AI Face Matcher Pro 🕵️‍♂️</div>', unsafe_allow_html=True)
 st.markdown('<div class="subjudul-siber">Sistem verifikasi identitas cerdas. Unggah dua foto untuk memulai pemindaian.</div>', unsafe_allow_html=True)
 
-# 1. Kolom Upload dengan Label Transparan
 kolom1, kolom2 = st.columns(2)
 
 with kolom1:
     st.markdown('<p class="label-upload"><span class="icon-profil">👤</span> Subjek Pertama</p>', unsafe_allow_html=True)
-    foto1 = st.file_uploader("Pilih foto (Resolusi baik)", type=['jpg', 'jpeg', 'png'])
+    foto1 = st.file_uploader("Pilih foto (Resolusi baik)", type=['jpg', 'jpeg', 'png'], key="f1")
 
 with kolom2:
     st.markdown('<p class="label-upload"><span class="icon-profil">👤</span> Subjek Kedua</p>', unsafe_allow_html=True)
-    foto2 = st.file_uploader("Pilih foto pembanding", type=['jpg', 'jpeg', 'png'])
+    foto2 = st.file_uploader("Pilih foto pembanding", type=['jpg', 'jpeg', 'png'], key="f2")
 
-# 2. Area Preview & Eksekusi
 if foto1 and foto2:
     st.image([foto1, foto2], caption=["Foto 1", "Foto 2"], use_container_width=True)
     
     st.markdown("---")
     
-    # 3. Tombol Eksekusi
     if st.button("Mulai Bandingkan Wajah!", use_container_width=True):
         
         with st.spinner('Mesin AI sedang memindai wajah...'):
@@ -230,7 +210,6 @@ if foto1 and foto2:
                 os.remove(nama_file1)
                 os.remove(nama_file2)
                 
-                # Kesimpulan Glassmorphism
                 if hasil["verified"] == True:
                     st.success("✅ KESIMPULAN: WAJAH COCOK! AI sangat yakin ini adalah orang yang sama.")
                 else:
@@ -239,7 +218,7 @@ if foto1 and foto2:
             except Exception as e:
                 st.error(f"⚠️ Terjadi kendala sistem: {e}")
 
-# 4. Kotak Footer Tengah (Glassmorphism Screenshot)
+# Kotak Footer Tengah
 st.markdown("""
     <div class="footer-tengah-box">
         <p class="footer-desc">Developed by <b class="creator-glow">RK STUDIO (MASAK AER)</b></p>
