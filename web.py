@@ -153,7 +153,7 @@ if foto1 and foto2:
 st.markdown("""
     <div class="footer-container">
         <div class="footer-tengah-box">
-            <p style="margin:0; font-size: 14px;">Developed by <b class="creator-glow">RK STUDIO (MASAK AER)</b></p>
+            <p style="margin:0; font-size: 14px;"><b class="creator-glow">RK STUDIO (MASAK AER)</b></p>
         </div>
     </div>
 """, unsafe_allow_html=True)
