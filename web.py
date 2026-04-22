@@ -49,7 +49,6 @@ st.markdown("""
 with st.sidebar:
     # Anda bisa mengganti link gambar ini dengan logo asli RK Studio jika ada
     st.image("https://cdn-icons-png.flaticon.com/512/1157/1157077.png", width=80) 
-    st.markdown("## 🚀 Tentang Creator")
     st.markdown("**RK STUDIO (MASAK AER)**")
     
     # Kotak info agar lebih mencolok
