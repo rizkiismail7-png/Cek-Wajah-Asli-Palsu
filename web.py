@@ -8,14 +8,14 @@ st.set_page_config(page_title="Deteksi Wajah AI", page_icon="🕵️‍♂️", 
 # --- TAMBAHAN HIASAN: MENU SAMPING (SIDEBAR) ---
 with st.sidebar:
     st.title("Tentang Creator 🚀")
-    st.write("Aplikasi AI ini dikembangkan oleh **Rizki Ismail**.")
+    st.write("Aplikasi AI ini dikembangkan oleh **RK STUDIO (MASAK AER)**.")
     st.write("Alat ini dirancang khusus untuk memverifikasi keaslian foto wajah secara akurat menggunakan teknologi *Deep Learning*.")
     st.markdown("---")
     st.caption("© 2026 Hak Cipta Dilindungi")
 
 # --- JUDUL UTAMA ---
 st.title("Aplikasi Pencocok Wajah AI 🕵️‍♂️")
-st.write("Silakan unggah dua foto untuk mengecek apakah mereka adalah orang yang sama.")
+st.write("Unggah dua foto untuk mengecek apakah mereka adalah orang yang sama.")
 st.markdown("---") # Tambahan garis pembatas estetik
 
 # 2. Membuat Dua Kolom untuk Upload Foto
@@ -62,4 +62,4 @@ if foto1 and foto2:
                 st.error(f"⚠️ Terjadi kendala sistem: {e}")
 
 # --- TAMBAHAN HIASAN: FOOTER BAWAH ---
-st.markdown("<br><br><p style='text-align: center; color: gray;'>Dibuat dengan 💻 oleh <b>Rizki Ismail</b></p>", unsafe_allow_html=True)
+st.markdown("<br><br><p style='text-align: center; color: gray;'>Dibuat dengan 💻 oleh <b>RK STUDIO (MASAK AER)</b></p>", unsafe_allow_html=True)
