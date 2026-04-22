@@ -9,7 +9,7 @@ st.set_page_config(page_title="Deteksi Wajah AI", page_icon="🕵️‍♂️", 
 with st.sidebar:
     st.title("Tentang Creator 🚀")
     st.write("Aplikasi AI ini dikembangkan oleh **RK STUDIO (MASAK AER)**.")
-    st.write("Alat ini dirancang khusus untuk memverifikasi keaslian foto wajah secara akurat menggunakan teknologi *Retina Face* *Deep Learning*.")
+    st.write("Alat ini dirancang khusus untuk memverifikasi keaslian foto wajah secara akurat menggunakan teknologi *Retina Face* dan *Deep Learning*.")
     st.markdown("---")
     st.caption("© 2026 Hak Cipta Dilindungi")
 
