@@ -167,7 +167,7 @@ with st.sidebar:
     
     st.markdown("""
         <div class="sidebar-desc-box">
-            Aplikasi web ini dirancang khusus untuk memverifikasi keaslian foto wajah secara instan & akurat menggunakan teknologi <span class='creator-glow'>Deep Learning</span>.
+            Aplikasi web ini dirancang khusus untuk memverifikasi keaslian foto wajah secara instan & akurat menggunakan teknologi <span class='creator-glow'>Retina Face dan Deep Learning</span>.
         </div>
     """, unsafe_allow_html=True)
     
