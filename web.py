@@ -113,7 +113,7 @@ st.markdown("""
 
 # --- HALAMAN UTAMA ---
 st.markdown('<div class="judul-siber">AI Face Matcher Pro 🕵️‍♂️</div>', unsafe_allow_html=True)
-st.markdown('<div class="subjudul-siber">Sistem verifikasi identitas cerdas dengan AI Retina Face dan Deep Learning.</div>', unsafe_allow_html=True)
+st.markdown('<div class="subjudul-siber">Sistem verifikasi wajah dengan AI Retina Face dan Deep Learning.</div>', unsafe_allow_html=True)
 
 kolom1, kolom2 = st.columns(2)
 
