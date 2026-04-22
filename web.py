@@ -1,9 +1,13 @@
+import os
+import sys
+# Memaksa server membuang OpenCV yang rusak dan menggantinya dengan versi Headless
+os.system(f"{sys.executable} -m pip uninstall -y opencv-python")
+os.system(f"{sys.executable} -m pip install opencv-python-headless")
+
 import streamlit as st
 from deepface import DeepFace
-import os
 
-# 1. Mengatur Tampilan Halaman Atas
-st.set_page_config(page_title="Deteksi Wajah AI", page_icon="🕵️‍♂️")
+# ... (biarkan sisa kode Anda di bawahnya tetap seperti semula) ...
 st.title("Aplikasi Pencocok Wajah AI 🕵️‍♂️")
 st.write("Silakan unggah dua foto untuk mengecek apakah mereka adalah orang yang sama.")
 
