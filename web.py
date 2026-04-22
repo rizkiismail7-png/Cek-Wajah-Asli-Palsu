@@ -182,6 +182,6 @@ if foto1 and foto2:
 # 4. Kotak Footer Tengah (Biarkan seperti adanya)
 st.markdown("""
     <div class="footer-tengah-box">
-        <p class="footer-desc">Developed by <b class="creator-glow">RK STUDIO (MASAK AER)</b></p>
+        <p class="footer-desc"><b class="creator-glow">RK STUDIO (MASAK AER)</b></p>
     </div>
 """, unsafe_allow_html=True)
