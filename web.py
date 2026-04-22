@@ -7,9 +7,10 @@ import base64
 st.set_page_config(page_title="RK Studio | Face Analis Pro", page_icon="🕵️‍♂️", layout="centered")
 
 # --- FUNGSI UNTUK MEMBACA & MEMASANG BACKGROUND GAMBAR ---
+# (Pastikan file background.jpg sudah ada di GitHub agar gambar masjid muncul)
 def set_background(image_file):
     try:
-        # Menggunakan "GPS" absolute path agar server Linux tidak tersesat mencari file
+        # GPS path
         current_dir = os.path.dirname(os.path.abspath(__file__))
         file_path = os.path.join(current_dir, image_file)
         
@@ -17,7 +18,7 @@ def set_background(image_file):
             data = f.read()
         bin_str = base64.b64encode(data).decode()
         
-        # Injeksi CSS untuk versi Streamlit lama maupun TERBARU
+        # Injeksi CSS (Biarkan tetap ada, karena ini untuk background utama halaman)
         st.markdown(
             f"""
             <style>
@@ -50,57 +51,10 @@ def set_background(image_file):
 set_background("background.jpg")
 
 
-# --- JURUS PAMUNGKAS: INJEKSI CSS TINGKAT TINGGI ---
+# --- JURUS PAMUNGKAS: INJEKSI CSS TINGKAT TINGGI (DIBERSIHKAN DARI SIDEBAR) ---
 st.markdown("""
     <style>
-    /* --- SIDEBAR GLASSMORPHISM & NEON --- */
-    [data-testid="stSidebar"] {
-        background: rgba(255, 255, 255, 0.05); 
-        backdrop-filter: blur(20px);
-        -webkit-backdrop-filter: blur(20px);
-        border-right: 2px solid rgba(255, 75, 120, 0.4);
-        box-shadow: 10px 0 30px rgba(0, 0, 0, 0.3);
-    }
-    
-    /* Ikon Folder di Sidebar */
-    .sidebar-icon {
-        color: rgba(255, 75, 120, 1) !important;
-        font-size: 70px !important;
-        text-align: center !important;
-        display: block !important;
-        margin-bottom: 20px;
-        filter: drop-shadow(0 0 10px rgba(255, 75, 120, 0.7));
-    }
-
-    /* Judul di Sidebar */
-    .sidebar-header {
-        color: white !important;
-        font-size: 24px !important;
-        font-weight: bold !important;
-        text-align: center !important;
-        margin-bottom: 5px;
-        filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.5));
-    }
-
-    /* Deskripsi di Sidebar */
-    .sidebar-desc-box {
-        background: rgba(255, 255, 255, 0.03);
-        border: 2px solid rgba(255, 75, 120, 0.6);
-        border-radius: 12px;
-        padding: 15px;
-        margin-top: 20px;
-        font-size: 14px;
-        color: rgba(255, 255, 255, 0.9);
-        box-shadow: 0 0 15px rgba(255, 75, 120, 0.3);
-    }
-
-    /* Footer Sidebar */
-    .sidebar-footer {
-        color: rgba(255, 255, 255, 0.6) !important;
-        font-size: 11px !important;
-        text-align: center;
-        margin-top: 40px;
-    }
+    /* KITA TELAH MENGHAPUS SEMUA GAYA CSS TERKAIT SIDEBAR DI SINI */
 
     /* --- HALAMAN UTAMA & ELEMEN SIBER --- */
     .judul-siber {
@@ -134,7 +88,7 @@ st.markdown("""
         filter: drop-shadow(0 0 5px rgba(255, 75, 120, 0.7));
     }
 
-    /* --- KARTU UPLOAD GLASSMORPHISM --- */
+    /* --- KARTU UPLOAD GLASSMORPHISM (Pertahankan gaya ini) --- */
     div[data-testid="stFileUploader"] {
         background: rgba(255, 255, 255, 0.05) !important; 
         border: 2px solid rgba(255, 75, 120, 0.5) !important; 
@@ -173,26 +127,15 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 
-# --- KONSTRUKSI UI ---
+# --- KONSTRUKSI UI (DIBERSIHKAN DARI SIDEBAR) ---
 
-# --- SIDEBAR ---
-with st.sidebar:
-    st.markdown('<div class="sidebar-icon">📁</div>', unsafe_allow_html=True)
-    st.markdown('<div class="sidebar-header">Tentang Creator</div>', unsafe_allow_html=True)
-    st.markdown('<p style="color:rgba(255,255,255,0.8); text-align:center;">RK STUDIO (MASAK AER)</p>', unsafe_allow_html=True)
-    
-    st.markdown("""
-        <div class="sidebar-desc-box">
-            Aplikasi web ini dirancang khusus untuk memverifikasi keaslian foto wajah secara instan & akurat menggunakan teknologi <span class='creator-glow'>Deep Learning</span>.
-        </div>
-    """, unsafe_allow_html=True)
-    
-    st.markdown('<p class="sidebar-footer">© 2026 Hak Cipta Dilindungi<br>Powered by RK Studio</p>', unsafe_allow_html=True)
+# --- SIDEBAR TELAH DIHAPUS SEPENUHNYA DI SINI ---
 
-# --- HALAMAN UTAMA ---
+# --- HALAMAN UTAMA (Desain Siber) ---
 st.markdown('<div class="judul-siber">AI Face Matcher Pro 🕵️‍♂️</div>', unsafe_allow_html=True)
 st.markdown('<div class="subjudul-siber">Sistem verifikasi identitas cerdas. Unggah dua foto untuk memulai pemindaian.</div>', unsafe_allow_html=True)
 
+# 1. Kolom Upload dengan Label Transparan
 kolom1, kolom2 = st.columns(2)
 
 with kolom1:
@@ -203,11 +146,13 @@ with kolom2:
     st.markdown('<p class="label-upload"><span class="icon-profil">👤</span> Subjek Kedua</p>', unsafe_allow_html=True)
     foto2 = st.file_uploader("Pilih foto pembanding", type=['jpg', 'jpeg', 'png'], key="f2")
 
+# 2. Area Preview & Eksekusi
 if foto1 and foto2:
     st.image([foto1, foto2], caption=["Foto 1", "Foto 2"], use_container_width=True)
     
     st.markdown("---")
     
+    # 3. Tombol Eksekusi
     if st.button("Mulai Bandingkan Wajah!", use_container_width=True):
         
         with st.spinner('Mesin AI sedang memindai wajah...'):
@@ -225,6 +170,7 @@ if foto1 and foto2:
                 os.remove(nama_file1)
                 os.remove(nama_file2)
                 
+                # Kesimpulan Glassmorphism
                 if hasil["verified"] == True:
                     st.success("✅ KESIMPULAN: WAJAH COCOK! AI sangat yakin ini adalah orang yang sama.")
                 else:
@@ -233,7 +179,7 @@ if foto1 and foto2:
             except Exception as e:
                 st.error(f"⚠️ Terjadi kendala sistem: {e}")
 
-# Kotak Footer Tengah
+# 4. Kotak Footer Tengah (Biarkan seperti adanya)
 st.markdown("""
     <div class="footer-tengah-box">
         <p class="footer-desc">Developed by <b class="creator-glow">RK STUDIO (MASAK AER)</b></p>
