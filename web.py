@@ -7,10 +7,8 @@ import base64
 st.set_page_config(page_title="RK Studio | Face Analis Pro", page_icon="🕵️‍♂️", layout="centered")
 
 # --- FUNGSI UNTUK MEMBACA & MEMASANG BACKGROUND GAMBAR ---
-# (Pastikan file background.jpg sudah ada di GitHub agar gambar masjid muncul)
 def set_background(image_file):
     try:
-        # GPS path
         current_dir = os.path.dirname(os.path.abspath(__file__))
         file_path = os.path.join(current_dir, image_file)
         
@@ -18,25 +16,21 @@ def set_background(image_file):
             data = f.read()
         bin_str = base64.b64encode(data).decode()
         
-        # Injeksi CSS (Biarkan tetap ada, karena ini untuk background utama halaman)
         st.markdown(
             f"""
             <style>
-            /* Target Streamlit versi lama */
             .stApp {{
                 background-image: url("data:image/jpeg;base64,{bin_str}");
                 background-size: cover;
                 background-position: center;
                 background-attachment: fixed;
             }}
-            /* Target Streamlit versi TERBARU (Sangat Penting) */
             [data-testid="stAppViewContainer"] {{
                 background-image: url("data:image/jpeg;base64,{bin_str}");
                 background-size: cover;
                 background-position: center;
                 background-attachment: fixed;
             }}
-            /* Membuat header atas transparan agar gambar tidak terhalang */
             [data-testid="stHeader"] {{
                 background-color: transparent !important;
             }}
@@ -45,18 +39,18 @@ def set_background(image_file):
             unsafe_allow_html=True
         )
     except Exception as e:
-        pass # Abaikan jika gambar tetap tidak terbaca
+        pass
 
-# Panggil fungsi background
 set_background("background.jpg")
 
-
-# --- JURUS PAMUNGKAS: INJEKSI CSS TINGKAT TINGGI (DIBERSIHKAN DARI SIDEBAR) ---
+# --- INJEKSI CSS TINGKAT TINGGI (KOTAK RAMPING) ---
 st.markdown("""
     <style>
-    /* KITA TELAH MENGHAPUS SEMUA GAYA CSS TERKAIT SIDEBAR DI SINI */
+    /* Menyembunyikan sidebar sepenuhnya jika masih ada sisa-sisa */
+    [data-testid="stSidebar"] {
+        display: none;
+    }
 
-    /* --- HALAMAN UTAMA & ELEMEN SIBER --- */
     .judul-siber {
         font-size: 40px !important;
         font-weight: bold !important;
@@ -73,7 +67,7 @@ st.markdown("""
     }
 
     .label-upload {
-        font-size: 20px;
+        font-size: 18px;
         font-weight: bold;
         color: white;
         display: flex;
@@ -84,58 +78,43 @@ st.markdown("""
     .icon-profil {
         color: rgba(255, 75, 120, 1);
         margin-right: 10px;
-        font-size: 22px;
-        filter: drop-shadow(0 0 5px rgba(255, 75, 120, 0.7));
     }
 
-    /* --- KARTU UPLOAD GLASSMORPHISM (Pertahankan gaya ini) --- */
     div[data-testid="stFileUploader"] {
         background: rgba(255, 255, 255, 0.05) !important; 
         border: 2px solid rgba(255, 75, 120, 0.5) !important; 
         border-radius: 12px !important;
-        padding: 10px !important;
         box-shadow: 0 0 20px rgba(255, 75, 120, 0.3) !important;
     }
 
-    /* --- KOTAK FOOTER TENGAH & KESIMPULAN --- */
+    /* --- CSS KOTAK FOOTER RAMPING (KUNCI PERUBAHAN) --- */
+    .footer-container {
+        text-align: center; /* Memastikan kotak yang inline berada di tengah */
+        margin-top: 40px;
+        width: 100%;
+    }
+
     .footer-tengah-box {
+        display: inline-block; /* KOTAK MENGIKUTI LEBAR TEKS */
         background: rgba(255, 255, 255, 0.03);
         border: 2px solid rgba(255, 75, 120, 0.7);
-        border-radius: 10px;
-        padding: 10px;
-        text-align: center;
+        border-radius: 12px;
+        padding: 10px 25px; /* Padding samping agar tulisan tidak nempel ke garis */
         color: white;
-        margin-top: 30px;
-        box-shadow: 0 0 15px rgba(255, 75, 120, 0.4);
-    }
-    
-    .footer-desc {
-        color: white;
+        box-shadow: 0 0 20px rgba(255, 75, 120, 0.4);
     }
     
     .creator-glow {
         color: rgba(255, 75, 120, 1);
         filter: drop-shadow(0 0 7px rgba(255, 75, 120, 0.8));
     }
-
-    /* Menyesuaikan jarak pembatas */
-    .stDivider {
-        border-bottom: 2px solid rgba(255, 75, 120, 0.4) !important;
-        filter: drop-shadow(0 0 5px rgba(255, 75, 120, 0.5));
-    }
     </style>
 """, unsafe_allow_html=True)
 
-
-# --- KONSTRUKSI UI (DIBERSIHKAN DARI SIDEBAR) ---
-
-# --- SIDEBAR TELAH DIHAPUS SEPENUHNYA DI SINI ---
-
-# --- HALAMAN UTAMA (Desain Siber) ---
+# --- HALAMAN UTAMA ---
 st.markdown('<div class="judul-siber">AI Face Matcher Pro 🕵️‍♂️</div>', unsafe_allow_html=True)
-st.markdown('<div class="subjudul-siber">Sistem verifikasi identitas dengan AI Retina Face dan Deep Learning.</div>', unsafe_allow_html=True)
+st.markdown('<div class="subjudul-siber">Sistem verifikasi identitas cerdas dengan AI Retina Face dan Deep Learning.</div>', unsafe_allow_html=True)
 
-# 1. Kolom Upload dengan Label Transparan
 kolom1, kolom2 = st.columns(2)
 
 with kolom1:
@@ -146,42 +125,35 @@ with kolom2:
     st.markdown('<p class="label-upload"><span class="icon-profil">👤</span> Subjek Kedua</p>', unsafe_allow_html=True)
     foto2 = st.file_uploader("Pilih foto pembanding", type=['jpg', 'jpeg', 'png'], key="f2")
 
-# 2. Area Preview & Eksekusi
 if foto1 and foto2:
     st.image([foto1, foto2], caption=["Foto 1", "Foto 2"], use_container_width=True)
     
-    st.markdown("---")
-    
-    # 3. Tombol Eksekusi
     if st.button("Mulai Bandingkan Wajah!", use_container_width=True):
-        
-        with st.spinner('Mesin AI sedang memindai wajah...'):
+        with st.spinner('Memindai struktur wajah...'):
             try:
                 nama_file1 = "tmp1_" + foto1.name
                 nama_file2 = "tmp2_" + foto2.name
-                
                 with open(nama_file1, "wb") as f:
                     f.write(foto1.getbuffer())
                 with open(nama_file2, "wb") as f:
                     f.write(foto2.getbuffer())
                 
                 hasil = DeepFace.verify(img1_path=nama_file1, img2_path=nama_file2)
-                
                 os.remove(nama_file1)
                 os.remove(nama_file2)
                 
-                # Kesimpulan Glassmorphism
                 if hasil["verified"] == True:
-                    st.success("✅ KESIMPULAN: WAJAH COCOK! AI sangat yakin ini adalah orang yang sama.")
+                    st.success("✅ KESIMPULAN: WAJAH COCOK!")
                 else:
-                    st.error("❌ KESIMPULAN: WAJAH BERBEDA! AI menilai ini adalah dua orang yang berbeda.")
-                    
+                    st.error("❌ KESIMPULAN: WAJAH BERBEDA!")
             except Exception as e:
-                st.error(f"⚠️ Terjadi kendala sistem: {e}")
+                st.error(f"⚠️ Kendala sistem: {e}")
 
-# 4. Kotak Footer Tengah (Biarkan seperti adanya)
+# --- FOOTER TENGAH (HASIL DESAIN RAMPING) ---
 st.markdown("""
-    <div class="footer-tengah-box">
-        <p class="footer-desc"><b class="creator-glow">RK STUDIO (MASAK AER)</b></p>
+    <div class="footer-container">
+        <div class="footer-tengah-box">
+            <p style="margin:0; font-size: 14px;">Developed by <b class="creator-glow">RK STUDIO (MASAK AER)</b></p>
+        </div>
     </div>
 """, unsafe_allow_html=True)
