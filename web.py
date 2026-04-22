@@ -133,7 +133,7 @@ st.markdown("""
 
 # --- HALAMAN UTAMA (Desain Siber) ---
 st.markdown('<div class="judul-siber">AI Face Matcher Pro 🕵️‍♂️</div>', unsafe_allow_html=True)
-st.markdown('<div class="subjudul-siber">Sistem verifikasi identitas cerdas. Unggah dua foto untuk memulai pemindaian.</div>', unsafe_allow_html=True)
+st.markdown('<div class="subjudul-siber">Sistem verifikasi identitas dengan AI Retina Face dan Deep Learning.</div>', unsafe_allow_html=True)
 
 # 1. Kolom Upload dengan Label Transparan
 kolom1, kolom2 = st.columns(2)
