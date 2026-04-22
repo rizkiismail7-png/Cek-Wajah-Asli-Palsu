@@ -12,7 +12,7 @@ def get_base64_of_bin_file(bin_file):
         data = f.read()
     return base64.b64encode(data).decode()
 
-# Memasang background jika file ada, abaikan jika tidak ada (agar tidak muncul teks error)
+# Memasang background jika file ada, abaikan jika tidak ada
 try:
     if os.path.exists("background.jpg"):
         bin_str = get_base64_of_bin_file("background.jpg")
@@ -35,8 +35,7 @@ except:
 # --- JURUS PAMUNGKAS: INJEKSI CSS TINGKAT TINGGI ---
 st.markdown("""
     <style>
-    /* Mengubah font global */
-    * { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif !important; }
+    /* KITA HAPUS PAKSAAN FONT GLOBAL DI SINI AGAR IKON UPLOAD TIDAK ERROR */
 
     /* --- SIDEBAR GLASSMORPHISM & NEON --- */
     [data-testid="stSidebar"] {
