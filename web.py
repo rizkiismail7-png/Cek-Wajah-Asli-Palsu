@@ -7,36 +7,52 @@ import base64
 st.set_page_config(page_title="RK Studio | Face Analis Pro", page_icon="🕵️‍♂️", layout="centered")
 
 # --- FUNGSI UNTUK MEMBACA & MEMASANG BACKGROUND GAMBAR ---
-def get_base64_of_bin_file(bin_file):
-    with open(bin_file, 'rb') as f:
-        data = f.read()
-    return base64.b64encode(data).decode()
-
-# Memasang background jika file ada, abaikan jika tidak ada
-try:
-    if os.path.exists("background.jpg"):
-        bin_str = get_base64_of_bin_file("background.jpg")
+def set_background(image_file):
+    try:
+        # Menggunakan "GPS" absolute path agar server Linux tidak tersesat mencari file
+        current_dir = os.path.dirname(os.path.abspath(__file__))
+        file_path = os.path.join(current_dir, image_file)
+        
+        with open(file_path, 'rb') as f:
+            data = f.read()
+        bin_str = base64.b64encode(data).decode()
+        
+        # Injeksi CSS untuk versi Streamlit lama maupun TERBARU
         st.markdown(
             f"""
             <style>
+            /* Target Streamlit versi lama */
             .stApp {{
-                background-image: url("data:image/jpg;base64,{bin_str}");
+                background-image: url("data:image/jpeg;base64,{bin_str}");
                 background-size: cover;
+                background-position: center;
                 background-attachment: fixed;
+            }}
+            /* Target Streamlit versi TERBARU (Sangat Penting) */
+            [data-testid="stAppViewContainer"] {{
+                background-image: url("data:image/jpeg;base64,{bin_str}");
+                background-size: cover;
+                background-position: center;
+                background-attachment: fixed;
+            }}
+            /* Membuat header atas transparan agar gambar tidak terhalang */
+            [data-testid="stHeader"] {{
+                background-color: transparent !important;
             }}
             </style>
             """,
             unsafe_allow_html=True
         )
-except:
-    pass
+    except Exception as e:
+        pass # Abaikan jika gambar tetap tidak terbaca
+
+# Panggil fungsi background
+set_background("background.jpg")
 
 
 # --- JURUS PAMUNGKAS: INJEKSI CSS TINGKAT TINGGI ---
 st.markdown("""
     <style>
-    /* KITA HAPUS PAKSAAN FONT GLOBAL DI SINI AGAR IKON UPLOAD TIDAK ERROR */
-
     /* --- SIDEBAR GLASSMORPHISM & NEON --- */
     [data-testid="stSidebar"] {
         background: rgba(255, 255, 255, 0.05); 
@@ -167,7 +183,7 @@ with st.sidebar:
     
     st.markdown("""
         <div class="sidebar-desc-box">
-            Aplikasi web ini dirancang khusus untuk memverifikasi keaslian foto wajah secara instan & akurat menggunakan teknologi <span class='creator-glow'>Retina Face dan Deep Learning</span>.
+            Aplikasi web ini dirancang khusus untuk memverifikasi keaslian foto wajah secara instan & akurat menggunakan teknologi <span class='creator-glow'>Deep Learning</span>.
         </div>
     """, unsafe_allow_html=True)
     
